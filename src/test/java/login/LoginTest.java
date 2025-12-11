@@ -1,50 +1,72 @@
 package login;
 
 import org.openqa.selenium.By;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.EdgeDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;//testng için baya junit ile aynı mantık
 
 public class LoginTest {
-
     WebDriver driver;
+    String baseUrl = "https://the-internet.herokuapp.com/login";
 
     @BeforeMethod
-    public void setUp() {
-        // Lokal driver path YOK — Selenium Manager otomatik bulur
-        driver = new EdgeDriver();
-        driver.manage().window().maximize();
-    }
+    @Parameters("browser")
+    public void setup(String browser) {
 
-    @Test
-    public void validLoginTest() {
-        driver.get("https://practicetestautomation.com/practice-test-login/");
+        if(browser.equals("chrome")){
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+        } else if(browser.equals("edge")) {
+            WebDriverManager.edgedriver().setup();
+            driver = new FirefoxDriver();
+        } else if(browser.equals("firefox")) {
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver();
+        }
 
-        driver.findElement(By.id("username")).sendKeys("student");
-        driver.findElement(By.id("password")).sendKeys("Password123");
-        driver.findElement(By.id("submit")).click();
-
-        String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("logged-in-successfully"));
-    }
-
-    @Test
-    public void invalidLoginTest() {
-        driver.get("https://practicetestautomation.com/practice-test-login/");
-
-        driver.findElement(By.id("username")).sendKeys("wrongUser");
-        driver.findElement(By.id("password")).sendKeys("wrongPass");
-        driver.findElement(By.id("submit")).click();
-
-        String error = driver.findElement(By.id("error")).getText();
-        Assert.assertTrue(error.contains("Your username is invalid"));
+        driver.manage().window().maximize(); //tarayıcıyı tam ekran yap
+        driver.get(baseUrl); //login sayfasına git
     }
 
     @AfterMethod
     public void tearDown() {
         driver.quit();
+    }
+
+    @Test
+    public void testValidLogin() {
+        driver.findElement(By.id("username")).sendKeys("tomsmith");
+        driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
+
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        String successMessage = driver.findElement(By.id("flash")).getText();
+        Assert.assertTrue(successMessage.contains("You logged"));
+
+    }
+
+    @Test void testInvalidUsername(){
+        driver.findElement(By.id("username")).sendKeys("wronguser");
+        driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
+
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        String successMessage = driver.findElement(By.id("flash")).getText();
+        Assert.assertTrue(successMessage.contains("Your username is invalid"));
+
+    }
+    @Test
+    public void testInvalidPassword(){
+        driver.findElement(By.id("username")).sendKeys("tomsmith");
+        driver.findElement(By.id("password")).sendKeys("WrongPassword");
+
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        String successMessage = driver.findElement(By.id("flash")).getText();
+        Assert.assertTrue(successMessage.contains("Your password is invalid"));
+
     }
 }
