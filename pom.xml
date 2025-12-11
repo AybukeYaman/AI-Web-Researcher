@@ -52,14 +52,6 @@
             <version>1.17.2</version>
         </dependency>
 
-        <!-- ChatGPT API  -->
-        <dependency>
-            <groupId>com.openai</groupId>
-            <artifactId>openai-java</artifactId>
-            <version>4.8.0</version>
-        </dependency>
-
-
         <!-- JSON  -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

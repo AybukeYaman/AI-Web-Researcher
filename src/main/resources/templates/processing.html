@@ -2,10 +2,134 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Processing...</title>
+    <title>Research Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+        .meta-info {
+            background-color: #eef2f7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .meta-info strong { color: #007bff; }
+        
+        /* Tablo Tasarımı (Structured Data) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            width: 30%;
+        }
+        td a {
+            color: #007bff;
+            text-decoration: none;
+            word-break: break-all;
+            font-size: 0.9em;
+        }
+        td a:hover { text-decoration: underline; }
+
+        /* Final Conclusion Kutusu */
+        .conclusion-box {
+            background-color: #d4edda;
+            border-left: 6px solid #28a745;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+        .conclusion-box h3 {
+            margin-top: 0;
+            color: #155724;
+        }
+        .conclusion-text {
+            line-height: 1.6;
+            color: #155724;
+        }
+        
+        .back-btn {
+            display: block;
+            width: 200px;
+            margin: 40px auto 0;
+            padding: 10px;
+            text-align: center;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-btn:hover { background-color: #5a6268; }
+    </style>
 </head>
 <body>
-<h2>BEKLE</h2>
-<p>BEKLİCEN</p>
+
+<div class="container">
+    <h1>📑 Automated Information Retrieval Report</h1>
+
+    <div class="meta-info">
+        Research Topic (Keyword): <strong th:text="${keyword}"></strong>
+    </div>
+
+    <h3>📊 Detailed Findings</h3>
+    
+    <div th:if="${reports != null and !reports.isEmpty()}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Source URL</th>
+                    <th>AI Generated Summary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${reports}">
+                    <td>
+                        <a th:href="${item.url}" th:text="${item.url}" target="_blank"></a>
+                    </td>
+                    <td th:text="${item.summary}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div th:if="${reports == null or reports.isEmpty()}">
+        <p style="color: red; text-align: center;">No data could be retrieved. Please try another keyword.</p>
+    </div>
+
+    <div th:if="${conclusion}" class="conclusion-box">
+        <h3>💡 Final Comparative Conclusion</h3>
+        <p class="conclusion-text" th:text="${conclusion}"></p>
+    </div>
+
+    <a href="/" class="back-btn">⬅ New Search</a>
+</div>
+
 </body>
 </html>

@@ -2,16 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Keyword Search</title>
+    <title>AI Web Researcher</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; }
+        .container { text-align: center; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        input[type="text"] { padding: 10px; width: 300px; border: 1px solid #ddd; border-radius: 5px; margin-right: 10px; }
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        h1 { color: #333; }
+    </style>
 </head>
 <body>
-<h1>Automated Web Information Retrieval</h1>
 
-<form method="POST" action="/search">
-    <label>Enter a keyword:</label>
-    <input type="text" name="keyword" required>
-    <button type="submit">Search</button>
-</form>
+<div class="container">
+    <h1>Automated Web Researcher</h1>
+    <p>Enter a topic, and I'll research and summarize it for you.</p>
+    
+    <form method="POST" action="/search">
+        <input type="text" name="keyword" placeholder="e.g. Artificial Intelligence" required>
+        <button type="submit">Start Research</button>
+    </form>
+</div>
 
 </body>
 </html>
