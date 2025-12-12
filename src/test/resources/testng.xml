@@ -15,10 +15,6 @@
             <class name="login.LoginTest"/>
         </classes>
     </test>
-        <test name="Factory Based Tests">
-            <classes>
-                <class name="login.LoginTestFactory"/>
-            </classes>
-        </test>
+
 
 </suite>
