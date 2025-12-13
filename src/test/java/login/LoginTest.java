@@ -12,6 +12,8 @@ public class LoginTest {
     WebDriver driver;
     String baseUrl = "https://the-internet.herokuapp.com/login";
 
+
+
     @BeforeMethod
     @Parameters("browser")
     public void setup(String browser) {
@@ -19,9 +21,6 @@ public class LoginTest {
         if(browser.equals("chrome")){
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
-        } else if(browser.equals("edge")) {
-            WebDriverManager.edgedriver().setup();
-            driver = new FirefoxDriver();
         } else if(browser.equals("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
@@ -48,7 +47,8 @@ public class LoginTest {
 
     }
 
-    @Test void testInvalidUsername(){
+    @Test
+    public void testInvalidUsername(){
         driver.findElement(By.id("username")).sendKeys("wronguser");
         driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
 
@@ -69,4 +69,6 @@ public class LoginTest {
         Assert.assertTrue(successMessage.contains("Your password is invalid"));
 
     }
+
+
 }
