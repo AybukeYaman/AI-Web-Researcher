@@ -1,0 +1,9 @@
+OpenAIService.class içerisindeki API_KEY usage limit e sahip. Usage Limitin iin bitmesi dahilinde buradan yeni key alıp 
+bu satıra yeni key'i ekleyebilirsiniz:
+
+
+  // Put API KEY here
+    private static final String API_KEY = "AIzaSyBQ-prXVMPzs6cxWf8XUUKF5oURkAEZbMo";
+
+
+yeni KEY için site:  https://aistudio.google.com/api-keys

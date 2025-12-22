@@ -147,3 +147,4 @@ This project was developed to learn Selenium WebDriver, TestNG, and AI integrati
 
 ## 📌 Contact
 - **Email:** aybuke.yaman@tedu.edu.tr
+- **Email:** mtuna.telatar@tedu.edu.tr / tunatelatar@gmail.com
